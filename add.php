@@ -40,6 +40,14 @@
 		$sMessage = stripslashes( $sMessage );
 	}
 
+	// Forbid ISO norloge because dev< is a pain in the ass
+	if( preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/',$sMessage ) === 1 )
+	{
+		header( 'HTTP/1.1 400 Bad Request' );
+		header( 'Content-Type: text/plain ; charset=UTF-8' );
+		exit( 'Erreur : Tu fais chier dev< avec tes norloges de merde' );
+	}
+
 	/*
 	 * Lecture et vérification du User-Agent :
 	 */
